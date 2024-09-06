@@ -40,7 +40,7 @@ func main() {
 	whisperCmd.Stdout = os.Stdout
 	whisperCmd.Stderr = os.Stderr
 
-	err = whisperCmd.Run()
+	whisperErr := whisperCmd.Run()
 
 	err = os.Remove(outputPath)
 	if err != nil {
@@ -48,8 +48,7 @@ func main() {
 		// We don't return here, as the main operation (transcription) has already completed
 	}
 
-	if err != nil {
-		fmt.Println(err)
-		return
+	if whisperErr != nil {
+		fmt.Println(whisperErr)
 	}
 }
