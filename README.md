@@ -1,4 +1,4 @@
-# Whisper-CLI 🎙️ - A CLI wrapper for Whisper speech recognition
+# Better-Whisper 🎙️ - A CLI wrapper for Whisper speech recognition
 
 Whisper-CLI is a command-line interface tool that wraps the Whisper speech recognition model, providing easy audio file conversion and transcription capabilities.
 
