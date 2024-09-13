@@ -1,4 +1,4 @@
-module better-whisper
+module github.com/akash-joshi/better-whisper
 
 go 1.22.5
 
