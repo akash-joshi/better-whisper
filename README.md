@@ -7,7 +7,7 @@ Whisper-CLI is a command-line interface tool that wraps the Whisper speech recog
 You can quickly run the Whisper-CLI directly from GitHub using the `go run` command:
 
 ```sh
-go run github.com/akash-joshi/better-whisper@main [whisper-cpp arguments] <input-file>
+go run github.com/akash-joshi/better-whisper@v0.1.1 [whisper-cpp arguments] <input-file>
 ```
 
 ## Features
