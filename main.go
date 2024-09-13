@@ -21,13 +21,26 @@ func convertToWav(filePath string) (string, error) {
 	return outputPath, nil
 }
 
+func executeWhisper(args []string) error {
+	whisperCmd := exec.Command("whisper-cpp", args...)
+	whisperCmd.Stdout = os.Stdout
+	whisperCmd.Stderr = os.Stderr
+
+	return whisperCmd.Run()
+}
+
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Please provide a file path as an argument.")
-		return
+	filePath := os.Args[len(os.Args)-1]
+
+	fileExists := true
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		fileExists = false
 	}
 
-	filePath := os.Args[len(os.Args)-1]
+	if !fileExists {
+		executeWhisper(os.Args[1:])
+		os.Exit(0)
+	}
 
 	outputPath, err := convertToWav(filePath)
 	if err != nil {
@@ -36,11 +49,7 @@ func main() {
 	}
 
 	args := append(os.Args[1:len(os.Args)-1], outputPath)
-	whisperCmd := exec.Command("whisper-cpp", args...)
-	whisperCmd.Stdout = os.Stdout
-	whisperCmd.Stderr = os.Stderr
-
-	whisperErr := whisperCmd.Run()
+	whisperErr := executeWhisper(args)
 
 	err = os.Remove(outputPath)
 	if err != nil {
