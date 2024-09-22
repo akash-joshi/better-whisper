@@ -1,10 +1,10 @@
-# Better-Whisper 🎙️ - A CLI wrapper for Whisper speech recognition
+# Better-Whisper 🎙️ - Config-free Whisper Transcription
 
-Whisper-CLI is a command-line interface tool that wraps the Whisper speech recognition model, providing easy audio file conversion and transcription capabilities.
+Better-Whisper is a command-line interface tool that uses the Whisper speech recognition model, providing easy audio file conversion and transcription capabilities. It handles all media formats so you can transcribe any file without configuration.
 
 ## Quick Start
 
-You can quickly run the Whisper-CLI directly from GitHub using the `go run` command:
+You can quickly run the Better-Whisper directly from GitHub using the `go run` command:
 
 ```sh
 go run github.com/akash-joshi/better-whisper@v0.1.1 [whisper-cpp arguments] <input-file>
@@ -31,13 +31,13 @@ go run main.go [whisper-cpp arguments] <input-file>
 Build the project:
 
 ```sh
-go build -o whisper-cli main.go
+go build -o better-whisper main.go
 ```
 
 Run the CLI tool:
 
 ```sh
-./whisper-cli [whisper-cpp arguments] <input-file>
+./better-whisper [whisper-cpp arguments] <input-file>
 ```
 
 If the input file exists, it will be converted to WAV format (if necessary) before being passed to Whisper. If the input file doesn't exist, the command will be passed directly to Whisper.
