@@ -10,6 +10,12 @@ You can quickly run the Better-Whisper directly from GitHub using the `go run` c
 go run github.com/akash-joshi/better-whisper@v0.1.1 [whisper-cpp arguments] <input-file>
 ```
 
+## Example
+
+```sh
+better-whisper -m ~/Documents/ggml-model-whisper-small.en.bin -t 4 -p 2 -ml 21 -sow -osrt
+```
+
 ## Features
 
 - Converts various audio formats to WAV for Whisper processing
