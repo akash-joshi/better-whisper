@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
+	"strings"
 
 	ffmpeg_go "github.com/u2takey/ffmpeg-go"
 )
@@ -22,11 +24,24 @@ func convertToWav(filePath string) (string, error) {
 }
 
 func executeWhisper(args []string) error {
-	whisperCmd := exec.Command("whisper-cpp", args...)
-	whisperCmd.Stdout = os.Stdout
-	whisperCmd.Stderr = os.Stderr
+	var cmd *exec.Cmd
+	if runtime.GOOS == "darwin" && runtime.GOARCH == "arm64" {
+		brewPrefix, err := exec.Command("brew", "--prefix", "whisper-cpp").Output()
+		if err != nil {
+			return fmt.Errorf("error getting whisper-cpp prefix: %v", err)
+		}
+		metalPath := strings.TrimSpace(string(brewPrefix)) + "/share/whisper-cpp"
 
-	return whisperCmd.Run()
+		os.Setenv("GGML_METAL_PATH_RESOURCES", metalPath)
+		cmd = exec.Command("whisper-cpp", args...)
+	} else {
+		cmd = exec.Command("whisper-cpp", args...)
+	}
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	return cmd.Run()
 }
 
 func whisper_print_usage() {
