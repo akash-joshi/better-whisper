@@ -74,6 +74,15 @@ func whisper_print_usage() {
 	fmt.Println("  -ng,       --no-gpu            [false  ] disable GPU")
 }
 
+func containsHelpFlag(args []string) bool {
+	for _, arg := range args {
+		if arg == "-h" || arg == "--help" {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	// Check if ffmpeg exists
 	_, ffmpegErr := exec.LookPath("ffmpeg")
@@ -94,7 +103,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if len(os.Args) > 1 && (os.Args[1] == "-h" || os.Args[1] == "--help") {
+	if containsHelpFlag(os.Args) {
 		whisper_print_usage()
 		os.Exit(0)
 	}
@@ -104,11 +113,15 @@ func main() {
 	fileExists := true
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
 		fileExists = false
+	} else {
+		if len(os.Args) == 1 || filePath == "" {
+			fileExists = false
+		}
 	}
 
 	if !fileExists {
-		executeWhisper(os.Args[1:])
-		os.Exit(0)
+		fmt.Println("No file provided or file does not exist.")
+		os.Exit(1)
 	}
 
 	outputPath, err := convertToWav(filePath)
