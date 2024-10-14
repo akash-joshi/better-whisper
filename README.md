@@ -4,10 +4,31 @@ Better-Whisper is a command-line interface tool that uses the Whisper speech rec
 
 ## Quick Start
 
+
+### 1. Install `whisper.cpp`
+
+If you're on macOS, that's
+
+```sh
+brew install whisper-cpp
+```
+
+### 2. Download a model
+
+I recommend starting with `ggm-small.en` as your model: https://huggingface.co/ggerganov/whisper.cpp/tree/main
+
+### 3. Run the script
+
 You can quickly run the Better-Whisper directly from GitHub using the `go run` command:
 
 ```sh
 go run github.com/akash-joshi/better-whisper@v0.1.1 [whisper-cpp arguments] <input-file>
+```
+
+Or locally with 
+
+```sh
+go run main.go [whisper-cpp arguments] <input-file>
 ```
 
 ## Example
