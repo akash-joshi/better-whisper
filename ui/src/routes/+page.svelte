@@ -1,11 +1,15 @@
 <script>
   import { open } from "@tauri-apps/plugin-dialog";
+  import { readTextFile } from "@tauri-apps/plugin-fs";
 
   /** @type {string | null} */
   let filePath = null;
 
   /** @type {string | null} */
   let srtPath = null;
+
+  /** @type {string | null} */
+  let srtContent = null;
 
   async function transcribe() {
     try {
@@ -52,6 +56,7 @@
       if (data.success) {
         console.log("Transcription output path:", data.srtPath);
         srtPath = data.srtPath;
+        srtContent = await readTextFile(srtPath);
       } else {
         console.error("Transcription failed:", data.error);
       }
@@ -66,5 +71,7 @@
   {filePath}
   <br />
   <button on:click={transcribeAudio}>Transcribe</button>
-  {srtPath}
+  {#if srtContent}
+    <pre>{srtContent}</pre>
+  {/if}
 </main>
