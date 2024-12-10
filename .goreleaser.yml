@@ -19,7 +19,6 @@ builds:
 checksum:
   name_template: "checksums.txt"
 
-
 release:
   prerelease: auto
 
@@ -32,11 +31,11 @@ brews:
     description: "A better CLI for whisper-cpp"
     tap:
       owner: akash-joshi
-      name: homebrew-better-whisper
-    install: |
-      bin.install "better-whisper"
-    test: |
-      system "#{bin}/better-whisper", "--version"
+      name: homebrew-akash-joshi
+    commit_author:
+      name: akash-joshi
+      email: git@thewriting.dev
+
     dependencies:
       - name: "whisper-cpp"
       - name: "ffmpeg"
