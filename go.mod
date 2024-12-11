@@ -1,6 +1,6 @@
 module github.com/akash-joshi/better-whisper
 
-go 1.22.5
+go 1.23
 
 require github.com/u2takey/ffmpeg-go v0.5.0
 
