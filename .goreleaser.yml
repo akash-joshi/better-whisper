@@ -31,9 +31,13 @@ brews:
   - name: better-whisper
     homepage: "https://github.com/akash-joshi/better-whisper"
     description: "A better CLI for whisper-cpp"
-    tap:
+    repository:
       owner: akash-joshi
       name: homebrew-akash-joshi
+      branch: main
+      pull_request:
+        enabled: false
+
     commit_author:
       name: akash-joshi
       email: git@thewriting.dev
