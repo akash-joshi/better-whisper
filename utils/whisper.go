@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
-	"runtime/debug"
 	"strings"
 
 	ffmpeg_go "github.com/u2takey/ffmpeg-go"
@@ -106,12 +105,4 @@ func ContainsVersionFlag(args []string) bool {
 		}
 	}
 	return false
-}
-
-func GetModuleVersion() string {
-	info, ok := debug.ReadBuildInfo()
-	if !ok {
-		return "unknown"
-	}
-	return info.Main.Version
 }

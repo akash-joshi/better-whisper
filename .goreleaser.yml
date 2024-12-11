@@ -17,6 +17,7 @@ builds:
     binary: better-whisper
     ldflags:
       - -s -w
+      - -X main.version={{.Version}}
 
 checksum:
   name_template: "checksums.txt"

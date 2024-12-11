@@ -8,6 +8,8 @@ import (
 	"github.com/akash-joshi/better-whisper/utils"
 )
 
+var version = "devel"
+
 func main() {
 	// Check if ffmpeg exists
 	_, ffmpegErr := exec.LookPath("ffmpeg")
@@ -29,7 +31,6 @@ func main() {
 	}
 
 	if utils.ContainsVersionFlag(os.Args) {
-		version := utils.GetModuleVersion()
 		fmt.Println("better-whisper ", version)
 		os.Exit(0)
 	}
