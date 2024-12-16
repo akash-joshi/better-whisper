@@ -2,6 +2,8 @@
 
 Better-Whisper is a command-line interface tool that uses the Whisper speech recognition model, providing easy audio file conversion and transcription capabilities. It handles all media formats so you can transcribe any file without configuration.
 
+https://github.com/user-attachments/assets/de2cde84-123e-4e58-bb21-9520e8e214b4
+
 ## Quick Start
 
 
