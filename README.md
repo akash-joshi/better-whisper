@@ -7,27 +7,28 @@ https://github.com/user-attachments/assets/de2cde84-123e-4e58-bb21-9520e8e214b4
 ## Quick Start
 
 
-### 1. Install `whisper.cpp`
+### 1. Install `better-whisper`
 
 If you're on macOS, that's
 
 ```sh
-brew install whisper-cpp
+brew tap akash-joshi/homebrew-akash-joshi
+brew install better-whisper
 ```
 
 ### 2. Download a model
 
-I recommend starting with `ggm-small.en` as your model: https://huggingface.co/ggerganov/whisper.cpp/tree/main
+I recommend starting with `ggm-tiny.en` as your model: https://huggingface.co/ggerganov/whisper.cpp/tree/main
 
 ### 3. Run the script
 
-You can quickly run the Better-Whisper directly from GitHub using the `go run` command:
+You can quickly run the Better-Whisper directly from the CLI:
 
 ```sh
-go run github.com/akash-joshi/better-whisper@v0.1.1 [whisper-cpp arguments] <input-file>
+better-whisper [whisper-cpp arguments] <input-file>
 ```
 
-Or locally with 
+Or using the cloned repo with `go run`:
 
 ```sh
 go run main.go [whisper-cpp arguments] <input-file>
@@ -47,7 +48,7 @@ better-whisper -m ~/Documents/ggml-model-whisper-small.en.bin -t 4 -p 2 -ml 21 -
 
 ## Pre-requisites
 
-You need to have [`ffmpeg`](https://formulae.brew.sh/formula/ffmpeg) and [`whisper-cpp`](https://formulae.brew.sh/formula/whisper-cpp) installed on your system.
+You need to have [`ffmpeg`](https://formulae.brew.sh/formula/ffmpeg) and [`whisper-cpp`](https://formulae.brew.sh/formula/whisper-cpp) installed on your system. If you're installing via Brew, these dependencies are installed automatically.
 
 ## Usage
 
