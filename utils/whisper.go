@@ -10,6 +10,14 @@ import (
 	ffmpeg_go "github.com/u2takey/ffmpeg-go"
 )
 
+func IsValidMediaFile(path string) bool {
+	err := ffmpeg_go.Input(fmt.Sprintf("%q", path)).
+		Output("pipe:", ffmpeg_go.KwArgs{"f": "null"}).
+		Run()
+	fmt.Println(err)
+	return err == nil
+}
+
 func ConvertToWav(filePath string) (string, error) {
 	outputPath := fmt.Sprintf("%s_temp.wav", filePath)
 

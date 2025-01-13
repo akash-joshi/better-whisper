@@ -40,38 +40,52 @@ func main() {
 		os.Exit(0)
 	}
 
-	filePath := os.Args[len(os.Args)-1]
-
-	fileExists := true
-	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		fileExists = false
-	} else {
-		if len(os.Args) == 1 || filePath == "" {
-			fileExists = false
+	var filePaths []string
+	for _, arg := range os.Args[1:] {
+		var isValid = utils.IsValidMediaFile(arg)
+		fmt.Println(arg, isValid)
+		if isValid {
+			filePaths = append(filePaths, arg)
 		}
 	}
 
-	if !fileExists {
-		fmt.Println("No file provided or file does not exist.")
+	if len(filePaths) == 0 {
+		fmt.Println("No valid media files provided.")
 		os.Exit(1)
 	}
 
-	outputPath, err := utils.ConvertToWav(filePath)
-	if err != nil {
-		fmt.Println("Error converting file:", err)
-		return
+	args := make([]string, len(os.Args))
+	copy(args, os.Args)
+
+	var wavPaths []string
+	for _, filePath := range filePaths {
+		outputPath, err := utils.ConvertToWav(filePath)
+		if err != nil {
+			fmt.Printf("Error converting file %s: %v\n", filePath, err)
+			continue
+		}
+		wavPaths = append(wavPaths, outputPath)
+
+		// Replace the original file path with the WAV output path in args
+		for i, arg := range args {
+			if arg == filePath {
+				args[i] = outputPath
+			}
+		}
 	}
 
-	args := append(os.Args[1:len(os.Args)-1], outputPath)
-	whisperErr = utils.ExecuteWhisper(args)
-
-	err = os.Remove(outputPath)
-	if err != nil {
-		fmt.Printf("Error deleting temporary file %s: %v\n", outputPath, err)
-		// We don't return here, as the main operation (transcription) has already completed
+	if len(wavPaths) > 0 {
+		whisperErr = utils.ExecuteWhisper(args[1:])
+		if whisperErr != nil {
+			fmt.Printf("Error processing files: %v\n", whisperErr)
+		}
 	}
 
-	if whisperErr != nil {
-		fmt.Println(whisperErr)
+	// Cleanup WAV files
+	for _, outputPath := range wavPaths {
+		err := os.Remove(outputPath)
+		if err != nil {
+			fmt.Printf("Error deleting temporary file %s: %v\n", outputPath, err)
+		}
 	}
 }
