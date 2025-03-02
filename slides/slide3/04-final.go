@@ -9,7 +9,7 @@ import (
 )
 
 func convertToWav(filePath string) (string, error) {
-	outputPath := fmt.Sprintf("%s_temp.wav", filePath)
+	outputPath := fmt.Sprintf("%s.wav", filePath)
 
 	err := ffmpeg_go.Input(filePath).
 		Output(outputPath, ffmpeg_go.KwArgs{"ar": 16000, "ac": 1, "c:a": "pcm_s16le"}).

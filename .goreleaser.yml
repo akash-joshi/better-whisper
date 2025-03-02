@@ -2,10 +2,12 @@ version: 2
 
 before:
   hooks:
+    # Syncs go mod dependencies with source code - upstream
     - go mod tidy
 
 builds:
   - env:
+      # Statically links binaries to avoid issues with shared libraries
       - CGO_ENABLED=0
     goos:
       - linux
@@ -14,28 +16,34 @@ builds:
     goarch:
       - amd64
       - arm64
+    # Name of the binary
     binary: better-whisper
     ldflags:
+      # Strip debug symbols
       - -s -w
+      # Set the version of the binary
       - -X main.version={{.Version}}
 
 checksum:
   name_template: "checksums.txt"
 
 release:
+  # Automatically set the prerelease version on GitHub based on the git tag
   prerelease: auto
 
 universal_binaries:
+  # Replace the binaries with the universal binaries for macos
   - replace: true
 
 brews:
-  - name: better-whisper
+  - name: better-whisper-demo
     homepage: "https://github.com/akash-joshi/better-whisper"
     description: "A better CLI for whisper-cpp"
     repository:
       owner: akash-joshi
       name: homebrew-akash-joshi
       branch: main
+      # Pull request or push to the main branch
       pull_request:
         enabled: false
 
